@@ -1,9 +1,9 @@
 # HangmanConsoleGame (Beginners Project)
-This project is my first **Hangman Game** that I developed using **C#** and my first upload to GitHub. It is a classic word guessing game where the player has to guess a secret word by entering letters. The game ends either when the word is guessed or when the player runs out of lives.
+This is my first project. Its a **Hangman Game** that I developed using **C#** and my first upload to GitHub. It is a classic word guessing game where the player has to guess a secret word by entering letters. The game ends either when the word is guessed or when the player runs out of lives.
 This is a simple but exciting project that helped me learn more about C# and console application development.
 
 ## Features
-
+- Selection between English or German words to guess
 - Random word selection from a predefined list(Plan is to later implement a SQL Database).
 - Guess letters or attempt to solve the word directly.
 - Visual representation of a hangman with a corresponding number of remaining lives.
@@ -35,12 +35,23 @@ This is a simple but exciting project that helped me learn more about C# and con
 
 ## Example Game Flow:
 
-  
-  ![image](https://github.com/user-attachments/assets/1bd0b049-6391-4368-81b1-8730be75497b)
-  
-  ![image](https://github.com/user-attachments/assets/60fd5654-38bd-40ac-b5c8-4a65fd6febb0)
+![image](https://github.com/user-attachments/assets/4dc5cb8c-a925-4e06-a4fa-386531f812c8)
 
-  ![image](https://github.com/user-attachments/assets/90c4e720-2930-453f-8abf-f20361447c70)
+![image](https://github.com/user-attachments/assets/1b998d85-5b5e-48e1-9509-4f12b6723a85)
+
+![image](https://github.com/user-attachments/assets/98ec3a44-d43f-4c65-8f75-eda37f9b5a6b)
+
+![image](https://github.com/user-attachments/assets/968a5417-99f4-493f-a790-263f8f2146c3)
+
+
+
+
+
+
+
+
+  
+  
 
 ## License
 This project is licensed under the MIT License. You are free to use, modify, and distribute this project as long as you include the license and give credit to the original author.
