@@ -7,40 +7,28 @@ namespace HangmanGame
     {
         private static void Main(string[] args)
         {
-            // Words to guess
-            string[] wordList =
-            {
-            "Heizoel","Donau", "Lokomotive", "Recycling", "Weihnachtsmann","Gymnastik", "Rhythmus", "Metapher ", "Einfaltspinsel", "Kernspintomografie",
-            "Jackett", "Bredouille", "Zucchini", "Portemonnaie", "Haftpflichtversicherung", "Hollywood", "Fussballweltmeisterschaft", "Wasserverschmutzung",
-            "Zukunftsmusik", "Zwiebelsuppe", "Zebra", "Yeti", "Babypuppe", "Quizshow", "Finanzdienstleistungsunternehmen", "Opernhaus", "Wrestling", "Hund",
-            "Katze", "Meerschweinchen", "Galgenraten", "Autobahn", "Eichhoernchen", "Chemie", "Biologie", "Auto", "Maschendrahtzaun", "Dumpfbacke", "Terrasse",
-            "Quarzuhr", "Lebenswandel", "Schatzi", "Burgverlies", "Salzgrotte", "Intelligenzquotient", "Kopfkino", "Umweltschutzorganisation", "Voodoopuppe"
-        };
+            // Select the word to guess based on language choice (English or German)
+            string wordToGuess = LanguageSelection();
 
-            // Generate a random word from the wordList with the length of the respective word
-            Random randomWord = new Random();
-            int randomWordIndex = randomWord.Next(wordList.Length);
-            string wordToGuess = wordList[randomWordIndex].ToLower();
-
-            // Create a char array with the length of the word to guess
+            // Create a char array with the length of the word to guess (initially blank)
             char[] word = new char[wordToGuess.Length];
 
-            // A char array to store the already guessed letters. The counter is for increasing the index of the attempts
+            // Array to store the guessed letters (up to 30 guesses)
             char[] guessedLetter = new char[30];
-            int letterCount = 0;
-            int lifesLeft = 10;
+            int letterCount = 0; // To track the number of guesses made
+            int lifesLeft = 10;  // Player starts with 10 lives
 
-            // Initialize each position in the word with "_"
+            // Initialize each position in the word with "_" to represent an unguessed letter
             for (int i = 0; i < wordToGuess.Length; i++)
             {
                 word[i] = '_';
             }
             Console.WriteLine($"The word to guess has {word.Length} letters");
 
-            // Game loop
+            // Main game loop continues while player still has lives
             while (lifesLeft > 0)
             {
-                // If the word is guessed correctly and the player wins
+                // Check if the word is completely guessed (win condition)
                 if (wordToGuess == new string(word))
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -50,9 +38,10 @@ namespace HangmanGame
                 }
                 else
                 {
-                    // Input a letter or "1" to solve the word
+                    // Get input for a letter guess or solve the word
                     char guess = LetterGuessInput();
 
+                    // If '1' is entered, player attempts to solve the word
                     if (guess == '1')
                     {
                         lifesLeft = SolveWord(lifesLeft, wordToGuess);
@@ -63,18 +52,18 @@ namespace HangmanGame
                     }
                     else
                     {
-                        // Save the guessed letters into the array
+                        // Store the guessed letter and increase attempt count
                         guessedLetter[letterCount] = guess;
                         letterCount++;
 
-                        // Deduct a life if an incorrect letter was guessed
+                        // Deduct a life if an incorrect letter is guessed
                         if (!wordToGuess.Contains(guess))
                         {
                             lifesLeft--;
                         }
                         else
                         {
-                            // If the letter is correct, update the word array by replacing "_" with the guessed letter
+                            // If the guessed letter is correct, update the word array
                             for (int i = 0; i < wordToGuess.Length; i++)
                             {
                                 if (wordToGuess[i] == guess)
@@ -85,14 +74,18 @@ namespace HangmanGame
                         }
                     }
 
+                    // Draw remaining lives and show guessed letters with their status (correct or incorrect)
                     Console.WriteLine();
                     DrawLifesLeft(lifesLeft);
                     GuessedLetterColor(guessedLetter, wordToGuess);
                     Console.WriteLine($"Word to guess: {new string(word)}");
+
+                    // Display hangman drawing and loss text if the player runs out of lives
                     DrawHangman(lifesLeft);
                     DrawLoosingText(lifesLeft);
                     Console.WriteLine();
 
+                    // If no lives left, show the word and end the game
                     if (wordToGuess != new string(word) && lifesLeft == 0)
                     {
                         Console.WriteLine($"Sorry, you couldn't guess the word after 10 attempts. The word was {char.ToUpper(wordToGuess[0])}{wordToGuess.Substring(1)}");
@@ -101,7 +94,69 @@ namespace HangmanGame
             }
         }
 
-        // Method to input a letter or the word to solve the puzzle
+        // Generate a random German word from a predefined list
+        private static string RandomWordGerman()
+        {
+            string[] germanWordList =
+            {
+            "Heizoel", "Donau", "Lokomotive", "Recycling", "Weihnachtsmann", "Gymnastik", "Rhythmus", "Metapher", "Einfaltspinsel", "Kernspintomografie",
+            "Jackett", "Bredouille", "Zucchini", "Portemonnaie", "Haftpflichtversicherung", "Hollywood", "Fussballweltmeisterschaft", "Wasserverschmutzung",
+            "Zukunftsmusik", "Zwiebelsuppe", "Zebra", "Yeti", "Babypuppe", "Quizshow", "Finanzdienstleistungsunternehmen", "Opernhaus", "Wrestling", "Hund",
+            "Katze", "Meerschweinchen", "Galgenraten", "Autobahn", "Eichhoernchen", "Chemie", "Biologie", "Auto", "Maschendrahtzaun", "Dumpfbacke", "Terrasse",
+            "Quarzuhr", "Lebenswandel", "Schatzi", "Burgverlies", "Salzgrotte", "Intelligenzquotient", "Kopfkino", "Umweltschutzorganisation", "Voodoopuppe"
+        };
+
+            Random randomWord = new Random();
+            int randomWordIndex = randomWord.Next(germanWordList.Length);
+            return germanWordList[randomWordIndex];
+        }
+
+        // Generate a random English word from a predefined list
+        private static string RandomWordEnglish()
+        {
+            string[] englishWordList =
+            {
+            "electricity", "donkey", "hardware", "xerox", "transistor", "computer", "desktop", "engineering", "hangman", "circuit", "imagination", "robot", "memory",
+            "power", "submarine", "chess", "resistance", "matrix", "function", "laser", "mechanism", "bodyguard", "titanic", "global", "ozone", "bridge", "technology", "spider",
+            "pyramid", "sphere", "member", "warning", "yourself", "screen", "language", "system", "internet", "parameter", "traffic", "network", "filter", "nucleus",
+            "automatic", "microphone", "cassette", "operation", "country", "beautiful", "picture", "teacher", "superman", "undertaker", "alarm", "process", "keyboard",
+            "electron", "certificate", "grandfather", "landmark", "relativity", "eraser", "design", "football", "human", "musician", "egyptian", "elephant", "queen"
+        };
+
+            Random randomWord = new Random();
+            int randomWordIndex = randomWord.Next(englishWordList.Length);
+            return englishWordList[randomWordIndex];
+        }
+
+        // Prompt user for language selection, return corresponding word to guess
+        private static string LanguageSelection()
+        {
+            string languageChoice;
+
+            while (true)
+            {
+                try
+                {
+                    Console.WriteLine("This is a Hangman Game");
+                    Console.WriteLine("To play the game with English words, press 'E'. For German words, press 'D'.");
+                    languageChoice = Console.ReadLine().Trim().ToUpper();
+
+                    if (languageChoice != "E" && languageChoice != "D")
+                    {
+                        throw new ArgumentException("Invalid input! Please enter 'E' for English or 'D' for German.");
+                    }
+                    break;
+                }
+                catch (ArgumentException ex)
+                {
+                    Console.WriteLine(ex.Message);
+                }
+            }
+
+            return (languageChoice == "E") ? RandomWordEnglish().ToLower() : RandomWordGerman().ToLower();
+        }
+
+        // Prompt user for a single letter guess or to solve the word by entering '1'
         private static char LetterGuessInput()
         {
             Console.WriteLine("Please enter a letter");
@@ -110,7 +165,7 @@ namespace HangmanGame
             return Console.ReadKey().KeyChar;
         }
 
-        // Method to guess the entire word and win the game
+        // Allow the player to solve the word, return remaining lives after the attempt
         private static int SolveWord(int lifesLeft, string wordToGuess)
         {
             Console.WriteLine();
@@ -119,10 +174,11 @@ namespace HangmanGame
 
             if (answer == "n")
             {
-                // If the player decided not to solve the word, they are returned to the game
+                // If the player decided not to solve, return to the game
             }
             else
             {
+                // Check if the word guessed is correct or not
                 if (answer == wordToGuess)
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
@@ -135,12 +191,12 @@ namespace HangmanGame
                     Console.WriteLine($"Sorry, that is incorrect. The word was: {char.ToUpper(wordToGuess[0])}{wordToGuess.Substring(1)}");
                     Console.ResetColor();
                 }
-                lifesLeft = 0;
+                lifesLeft = 0; // Ends the game
             }
             return lifesLeft;
         }
 
-        // Method to display guessed letters in green if correct and red if incorrect
+        // Display the already guessed letters and highlight correct ones in green, incorrect ones in red
         private static void GuessedLetterColor(char[] guessedLetters, string wordToGuess)
         {
             Console.Write("Already guessed letters: ");
@@ -156,13 +212,12 @@ namespace HangmanGame
                 }
 
                 Console.Write(letter.ToString().ToUpper());
-
                 Console.ResetColor();
             }
             Console.WriteLine(); // New line
         }
 
-        // Method to draw the hangman based on remaining lives
+        // Display the current hangman state based on the remaining lives
         private static void DrawHangman(int lifesLeft)
         {
             for (int i = 1; i <= 15; i++)
@@ -195,6 +250,7 @@ namespace HangmanGame
                     bool hasRightArm = lifesLeft <= 1 && ((i == 8 && j == 16) || (i == 9 && j == 17));
                     bool hasLeftArm = lifesLeft <= 0 && ((i == 8 && j == 14) || (i == 9 && j == 13));
 
+                    // Draw parts based on remaining lives
                     if (hasPole) Console.Write("|");
                     else if (hasBase) Console.Write("_");
                     else if (hasTop) Console.Write("_");
@@ -212,6 +268,7 @@ namespace HangmanGame
             }
         }
 
+        // Display the "YOU ARE DEAD" text when the player loses
         private static void DrawLoosingText(int lifesLeft)
         {
             for (int i = 1; i <= 15; i++)
@@ -246,7 +303,7 @@ namespace HangmanGame
             }
         }
 
-        // Method to display the remaining lives in different colors
+        // Display the remaining lives in different colors based on the count
         private static void DrawLifesLeft(int lifesLeft)
         {
             if (lifesLeft >= 9)
