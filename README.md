@@ -1,10 +1,10 @@
 # HangmanConsoleGame (Beginners Project)
-This is my first project. Its a **Hangman Game** that I developed using **C#** and my first upload to GitHub. It is a classic word guessing game where the player has to guess a secret word by entering letters. The game ends either when the word is guessed or when the player runs out of lives.
+This is one of my first projects. Its a **Hangman Game** that I developed using **C#** and my first upload to GitHub. It is a classic word guessing game where the player has to guess a secret word by entering letters. The game ends either when the word is guessed or when the player runs out of lives.
 This is a simple but exciting project that helped me learn more about C# and console application development.
 
 ## Features
 - Selection between English or German words to guess
-- Random word selection from a predefined list(Plan is to later implement a SQL Database).
+- Random word selection from a predefined list of words.
 - Guess letters or attempt to solve the word directly.
 - Visual representation of a hangman with a corresponding number of remaining lives.
 - Color-coded feedback for correctly and incorrectly guessed letters.
