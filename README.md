@@ -20,7 +20,7 @@ This is a simple but exciting project that helped me learn more about C# and con
 ## Installation
 
 1. Clone this repository:  
-   - git clone https://github.com/your-username/hangman-game-csharp.git
+   - git clone https://github.com/JanOleKracht/HangmanConsoleGame.git
 2. Open the project in Visual Studio or your preferred C# IDE.
 3. Build and run the program. The game will start in your console window.
 
